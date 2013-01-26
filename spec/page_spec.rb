@@ -26,4 +26,16 @@ describe BPlusTree::Page do
     @page.supremum.key.should == 3
     @page.keys.should == [1, 2, 3]
   end
+
+  it 'should delete first node' do
+    @page.insert(2, 'two').should   == 1
+    @page.insert(1, 'one').should   == 2
+    @page.insert(3, 'three').should == 3
+
+    @page.delete(1).should == true
+    @page.length.should == 2
+    @page.infimum.key.should == 2
+    @page.supremum.key.should  == 3
+    @page.keys.should == [2, 3]
+  end
 end

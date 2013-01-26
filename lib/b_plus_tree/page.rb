@@ -1,7 +1,7 @@
 class BPlusTree::Page
   attr_accessor :prev
   attr_accessor :next
-  attr_accessor :list
+  attr_reader   :list
 
   def initialize
     @prev = nil
@@ -21,7 +21,15 @@ class BPlusTree::Page
     @list.keys
   end
 
+  def length
+    @list.length
+  end
+
   def insert(key, value)
     @list.insert(key, value)
+  end
+
+  def delete(key)
+    @list.delete(key)
   end
 end
