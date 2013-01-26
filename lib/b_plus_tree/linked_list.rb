@@ -50,6 +50,17 @@ class BPlusTree::LinkedList
     nil
   end
 
+  def search_lte(key)
+    return nil unless key.is_a?(Integer)
+
+    pointer = @dummy
+    while pointer.next
+      break if pointer.next.key > key
+      pointer = pointer.next
+    end
+    pointer
+  end
+
   def delete(key)
     return nil unless key.is_a?(Integer)
 
