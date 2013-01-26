@@ -9,6 +9,7 @@ describe BPlusTree::LinkedList do
     @list.first.value.should == 'one'
     @list.last.key.should    == 1
     @list.last.value.should  == 'one'
+    @list.keys.should == [1]
   end
 
   it 'should insert two nodes' do
@@ -16,6 +17,7 @@ describe BPlusTree::LinkedList do
     @list.insert(2, 'two').should == 2
     @list.first.key.should   == 1
     @list.last.key.should    == 2
+    @list.keys.should == [1, 2]
   end
 
   it 'should insert three nodes' do
@@ -24,6 +26,7 @@ describe BPlusTree::LinkedList do
     @list.insert(3, 'three').should == 3
     @list.first.key.should   == 1
     @list.last.key.should    == 3
+    @list.keys.should == [1, 2, 3]
   end
 
   it 'should insert three nodes sorted' do
@@ -32,6 +35,7 @@ describe BPlusTree::LinkedList do
     @list.insert(3, 'three').should == 3
     @list.first.key.should   == 1
     @list.last.key.should    == 3
+    @list.keys.should == [1, 2, 3]
   end
 
   it 'should insert five nodes sorted' do
@@ -40,12 +44,7 @@ describe BPlusTree::LinkedList do
     @list.insert(5, 'three').should == 3
     @list.insert(3, 'three').should == 4
     @list.insert(4, 'three').should == 5
-
-    node = @list.first
-    (1..5).each do |i|
-      node.key.should == i
-      node = node.next
-    end
+    @list.keys.should == [1, 2, 3, 4, 5]
   end
 
   it 'should fail with non-integer key insertion' do
@@ -63,4 +62,53 @@ describe BPlusTree::LinkedList do
     @list.search(4).should == nil
   end
 
+  it 'should delete first node' do
+    @list.insert(2, 'two').should   == 1
+    @list.insert(1, 'one').should   == 2
+    @list.insert(3, 'three').should == 3
+
+    @list.delete(1).should == true
+    @list.length.should == 2
+    @list.first.key.should == 2
+    @list.last.key.should  == 3
+    @list.keys.should == [2, 3]
+  end
+
+  it 'should delete last node' do
+    @list.insert(2, 'two').should   == 1
+    @list.insert(1, 'one').should   == 2
+    @list.insert(3, 'three').should == 3
+
+    @list.delete(3).should == true
+    @list.length.should == 2
+    @list.first.key.should == 1
+    @list.last.key.should  == 2
+    @list.keys.should == [1, 2]
+  end
+
+  it 'should delete multi nodes' do
+    @list.insert(2, 'two').should   == 1
+    @list.insert(1, 'one').should   == 2
+    @list.insert(3, 'three').should == 3
+    @list.insert(2, 'two').should   == 4
+
+    @list.delete(2).should == true
+    @list.length.should == 2
+    @list.first.key.should == 1
+    @list.last.key.should  == 3
+    @list.keys.should == [1, 3]
+  end
+
+  it 'should delete multi last nodes' do
+    @list.insert(2, 'two').should   == 1
+    @list.insert(1, 'one').should   == 2
+    @list.insert(3, 'three').should == 3
+    @list.insert(3, 'three').should == 4
+
+    @list.delete(3).should == true
+    @list.length.should == 2
+    @list.first.key.should == 1
+    @list.last.key.should  == 2
+    @list.keys.should == [1, 2]
+  end
 end
