@@ -6,3 +6,4 @@ end
 
 require "b_plus_tree/version"
 require "b_plus_tree/linked_list"
+require "b_plus_tree/page"
