@@ -32,4 +32,9 @@ class BPlusTree::Page
   def delete(key)
     @list.delete(key)
   end
+
+  def search_leaf(key)
+    # need implementation in root and internal
+    nil
+  end
 end
