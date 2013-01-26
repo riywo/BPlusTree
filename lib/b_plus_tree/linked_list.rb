@@ -27,6 +27,17 @@ class BPlusTree::LinkedList
     inclement_length
   end
 
+  def search(key)
+    return nil unless key.is_a?(Integer)
+
+    pointer = @dummy
+    while pointer.next
+      return pointer.next if pointer.next.key == key
+      pointer = pointer.next
+    end
+    nil
+  end
+
   private
 
   def inclement_length

@@ -51,4 +51,16 @@ describe BPlusTree::LinkedList do
   it 'should fail with non-integer key insertion' do
     @list.insert('a', 'fail').should  == nil
   end
+
+  it 'should search exists nodes' do
+    @list.insert(2, 'two').should   == 1
+    @list.insert(1, 'one').should   == 2
+    @list.insert(3, 'three').should == 3
+
+    @list.search(1).key.should == 1
+    @list.search(2).key.should == 2
+    @list.search(3).key.should == 3
+    @list.search(4).should == nil
+  end
+
 end
