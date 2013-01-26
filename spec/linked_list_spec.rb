@@ -4,7 +4,7 @@ describe BPlusTree::LinkedList do
   end
 
   it 'should insert one node' do
-    @list.insert(1, 'one').should == true
+    @list.insert(1, 'one').should == 1
     @list.first.key.should   == 1
     @list.first.value.should == 'one'
     @list.last.key.should    == 1
@@ -12,8 +12,8 @@ describe BPlusTree::LinkedList do
   end
 
   it 'should insert two nodes' do
-    @list.insert(1, 'one').should == true
-    @list.insert(2, 'two').should == true
+    @list.insert(1, 'one').should == 1
+    @list.insert(2, 'two').should == 2
     @list.first.key.should   == 1
     @list.first.value.should == 'one'
     @list.last.key.should    == 2
@@ -21,9 +21,9 @@ describe BPlusTree::LinkedList do
   end
 
   it 'should insert three nodes' do
-    @list.insert(1, 'one').should == true
-    @list.insert(2, 'two').should == true
-    @list.insert(3, 'three').should == true
+    @list.insert(1, 'one').should   == 1
+    @list.insert(2, 'two').should   == 2
+    @list.insert(3, 'three').should == 3
     @list.first.key.should   == 1
     @list.first.value.should == 'one'
     @list.last.key.should    == 3
