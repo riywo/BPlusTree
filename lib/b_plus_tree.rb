@@ -1,5 +1,7 @@
-require "b_plus_tree/version"
-
 module BPlusTree
-  # Your code goes here...
+  def self.version_string
+    "BPlusTree version #{VERSION}"
+  end
 end
+
+require "b_plus_tree/version"
