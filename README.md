@@ -1,5 +1,7 @@
 # BPlusTree
 
+[![Build Status](https://travis-ci.org/riywo/BPlusTree.png)](https://travis-ci.org/riywo/BPlusTree)
+
 TODO: Write a gem description
 
 ## Installation
