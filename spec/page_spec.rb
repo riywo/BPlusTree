@@ -4,6 +4,9 @@ describe BPlusTree::Page do
   end
 
   it 'should insert one record' do
-    @page.insert(1, 'one').should == true
+    @page.insert(1, 'one').should == 1
+    @page.infimum.key.should  == 1
+    @page.supremum.key.should == 1
+    @page.keys.should == [1]
   end
 end
