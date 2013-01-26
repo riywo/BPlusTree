@@ -4,14 +4,27 @@ class BPlusTree::LinkedList
   attr_reader :length
 
   def initialize
-    @first  = Node.new(nil, nil)
-    @last   = @first
+    @dummy  = Node.new(nil, nil)
+    @first  = @dummy
+    @last   = @dummy
     @length = 0
   end
 
   def insert(key, value)
+    return nil unless key.is_a?(Integer)
     node = Node.new(key, value)
-    push(node)
+
+    pointer = @dummy
+    while pointer.next
+      break if pointer.next.key > key
+      pointer = pointer.next
+    end
+
+    node.next(pointer.next)
+    pointer.next(node)
+    @first = node if pointer == @dummy
+    @last  = node if pointer == @last
+    inclement_length
   end
 
   private
@@ -24,36 +37,6 @@ class BPlusTree::LinkedList
     @length = @length - 1
   end
 
-  def unshift(node)
-    if @first.key.nil?
-      @first = node
-      @last  = node
-    else
-      node.next(@first)
-      @first = node
-    end
-    inclement_length
-  end
-
-  def push(node)
-    if @first.key.nil?
-      @first = node
-      @last  = node
-    else
-      @last.next(node)
-      @last = node
-    end
-    inclement_length
-  end
-
-  def shift
-
-  end
-
-  def pop
-
-  end
-
   class Node
     attr_reader   :key
     attr_accessor :value
@@ -64,8 +47,12 @@ class BPlusTree::LinkedList
       @value     = value
     end
 
-    def next(node)
-      @next_node = node
+    def next(node = nil)
+      if node.nil?
+        @next_node
+      else
+        @next_node = node
+      end
     end
   end
 end
