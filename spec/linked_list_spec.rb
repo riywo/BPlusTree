@@ -51,7 +51,12 @@ describe BPlusTree::LinkedList do
     @list.insert('a', 'fail').should  == nil
   end
 
-  it 'should search exists nodes' do
+  it 'should fail with exist key insertion' do
+    @list.insert(1, 'one').should   == 1
+    @list.insert(1, 'one').should   == nil
+  end
+
+  it 'should search exist nodes' do
     @list.insert(2, 'two').should   == 1
     @list.insert(1, 'one').should   == 2
     @list.insert(3, 'three').should == 3
@@ -78,32 +83,6 @@ describe BPlusTree::LinkedList do
     @list.insert(2, 'two').should   == 1
     @list.insert(1, 'one').should   == 2
     @list.insert(3, 'three').should == 3
-
-    @list.delete(3).should == true
-    @list.length.should == 2
-    @list.first.key.should == 1
-    @list.last.key.should  == 2
-    @list.keys.should == [1, 2]
-  end
-
-  it 'should delete multi nodes' do
-    @list.insert(2, 'two').should   == 1
-    @list.insert(1, 'one').should   == 2
-    @list.insert(3, 'three').should == 3
-    @list.insert(2, 'two').should   == 4
-
-    @list.delete(2).should == true
-    @list.length.should == 2
-    @list.first.key.should == 1
-    @list.last.key.should  == 3
-    @list.keys.should == [1, 3]
-  end
-
-  it 'should delete multi last nodes' do
-    @list.insert(2, 'two').should   == 1
-    @list.insert(1, 'one').should   == 2
-    @list.insert(3, 'three').should == 3
-    @list.insert(3, 'three').should == 4
 
     @list.delete(3).should == true
     @list.length.should == 2

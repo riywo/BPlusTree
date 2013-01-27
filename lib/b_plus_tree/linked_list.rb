@@ -15,10 +15,8 @@ class BPlusTree::LinkedList
 
   def keys
     array = []
-    pointer = @dummy
-    while pointer.next
+    each do |pointer|
       array.push(pointer.next.key)
-      pointer = pointer.next
     end
     array
   end
@@ -27,11 +25,8 @@ class BPlusTree::LinkedList
     return nil unless key.is_a?(Integer)
     node = Node.new(key, value)
 
-    pointer = @dummy
-    while pointer.next
-      break if pointer.next.key > key
-      pointer = pointer.next
-    end
+    pointer = search_lte(key)
+    return nil if pointer.key == key
 
     node.next = pointer.next
     pointer.next = node
@@ -42,44 +37,64 @@ class BPlusTree::LinkedList
   def search(key)
     return nil unless key.is_a?(Integer)
 
-    pointer = @dummy
-    while pointer.next
-      return pointer.next if pointer.next.key == key
-      pointer = pointer.next
-    end
+    pointer = search_lte(key)
+    return pointer if pointer.key == key
     nil
   end
 
   def search_lte(key)
     return nil unless key.is_a?(Integer)
 
-    pointer = @dummy
-    while pointer.next
-      break if pointer.next.key > key
-      pointer = pointer.next
+    each do |pointer|
+      return pointer if pointer.next.key > key
     end
-    pointer
+    return @last
   end
 
   def delete(key)
     return nil unless key.is_a?(Integer)
 
-    pointer = @dummy
-    is_deleted = nil
-    while pointer.next
+    each do |pointer|
       if pointer.next.key == key
-        is_deleted = true
         @last = pointer if pointer.next == @last
         decrement_length
         pointer.next = pointer.next.next
-      else
-        pointer = pointer.next
+        return true
+      elsif pointer.next.key > key
+        return nil
       end
     end
-    is_deleted
+
+    return nil
+  end
+
+  def split(key)
+#    half = @length / 2
+#    pointer = @dummy
+#    half.times do
+#      pointer = pointer.next
+#    end
+#    pivot = pointer.key
+#    right = BPlusTree::LinkedList.new
+
+    # temp
+    right = BPlusTree::LinkedList.new
+    right.insert(@last.key, @last.value)
+    pivot = @last.key
+    delete(key)
+    left = self
+    return left, pivot, right
   end
 
   private
+
+  def each
+    pointer = @dummy
+    while pointer.next
+      yield(pointer)
+      pointer = pointer.next
+    end
+  end
 
   def inclement_length
     @length = @length + 1
