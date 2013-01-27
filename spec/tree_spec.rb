@@ -1,6 +1,6 @@
 describe BPlusTree::Tree do
   before do
-    @tree = BPlusTree::Tree.new
+    @tree = BPlusTree::Tree.new(3)
   end
 
   it 'should insert one record' do

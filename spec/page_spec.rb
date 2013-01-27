@@ -1,6 +1,6 @@
 describe BPlusTree::Page do
   before do
-    @page = BPlusTree::Page.new
+    @page = BPlusTree::Page.new(100)
   end
 
   it 'should insert one record' do

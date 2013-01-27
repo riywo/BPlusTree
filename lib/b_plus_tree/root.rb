@@ -1,7 +1,7 @@
 class BPlusTree::Root < BPlusTree::Page
-  def initialize
-    super
-    leaf = BPlusTree::Leaf.new
+  def initialize(size)
+    super(size)
+    leaf = BPlusTree::Leaf.new(size)
     insert(0, leaf)
   end
 

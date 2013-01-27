@@ -1,6 +1,6 @@
 class BPlusTree::Tree
-  def initialize
-    @root = BPlusTree::Root.new
+  def initialize(size)
+    @root = BPlusTree::Root.new(size)
   end
 
   def insert(key, value)

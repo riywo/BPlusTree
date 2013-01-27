@@ -2,11 +2,13 @@ class BPlusTree::Page
   attr_accessor :prev
   attr_accessor :next
   attr_accessor :list
+  attr_reader   :max_size
 
-  def initialize
+  def initialize(size)
     @prev = nil
     @next = nil
     @list = BPlusTree::LinkedList.new
+    @max_size = size
   end
 
   def infimum
@@ -34,16 +36,16 @@ class BPlusTree::Page
   end
 
   def can_insert?(key, value)
-    if length <= 2
-      true
-    else
+    if length + 1 > max_size
       nil
+    else
+      true
     end
   end
 
   def split(key)
     left, pivot, right = @list.split(key)
-    new_page = self.class.new
+    new_page = self.class.new(@max_size)
     new_page.list = right
     new_page.prev = self
     new_page.next = @next
