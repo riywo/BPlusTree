@@ -86,8 +86,6 @@ class BPlusTree::LinkedList
     return left, pivot, right
   end
 
-  private
-
   def each
     pointer = @dummy
     while pointer.next
@@ -95,6 +93,8 @@ class BPlusTree::LinkedList
       pointer = pointer.next
     end
   end
+
+  private
 
   def inclement_length
     @length = @length + 1
