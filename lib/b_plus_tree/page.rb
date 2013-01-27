@@ -34,12 +34,16 @@ class BPlusTree::Page
   end
 
   def can_insert?(key, value)
-    true
+    if length <= 2
+      true
+    else
+      nil
+    end
   end
 
   def split(key)
     left, pivot, right = @list.split(key)
-    new_page = BPlusTree::Page.new
+    new_page = self.class.new
     new_page.list = right
     new_page.prev = self
     new_page.next = @next

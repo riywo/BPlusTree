@@ -23,4 +23,8 @@ class BPlusTree::Root < BPlusTree::Page
     end
     array
   end
+
+  def can_insert?(key, value)
+    true
+  end
 end

@@ -81,7 +81,7 @@ class BPlusTree::LinkedList
     right = BPlusTree::LinkedList.new
     right.insert(@last.key, @last.value)
     pivot = @last.key
-    delete(key)
+    delete(pivot)
     left = self
     return left, pivot, right
   end

@@ -14,10 +14,17 @@ describe BPlusTree::Tree do
     @tree.keys.should == [[1]]
   end
 
-  it 'should insert two records' do
+  it 'should insert five records' do
     @tree.insert(1, 'one').should == true
+    @tree.keys.should == [[1]]
     @tree.insert(2, 'two').should == true
-    @tree.keys.should == [[1, 2]]
+    @tree.keys.should == [[1,2]]
+    @tree.insert(3, 'three').should == true
+    @tree.keys.should == [[1,2,3]]
+    @tree.insert(4, 'four').should == true
+    @tree.keys.should == [[1,2],[3,4]]
+    @tree.insert(5, 'five').should == true
+    @tree.keys.should == [[1,2],[3,4,5]]
   end
 
 end
