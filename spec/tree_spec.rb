@@ -1,6 +1,6 @@
 describe BPlusTree::Tree do
   before do
-    @tree = BPlusTree::Tree.new(3)
+    @tree = BPlusTree::Tree.new(4)
   end
 
   it 'should insert one record' do
@@ -22,9 +22,8 @@ describe BPlusTree::Tree do
     @tree.insert(3, 'three').should == true
     @tree.keys.should == [[1,2,3]]
     @tree.insert(4, 'four').should == true
-    @tree.keys.should == [[1,2],[3,4]]
+    @tree.keys.should == [[1,2,3,4]]
     @tree.insert(5, 'five').should == true
     @tree.keys.should == [[1,2],[3,4,5]]
   end
-
 end

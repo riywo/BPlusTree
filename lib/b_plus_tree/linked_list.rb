@@ -2,11 +2,20 @@ class BPlusTree::LinkedList
   attr_reader :last
   attr_reader :length
 
-  def initialize
+  def initialize(list = nil)
     @dummy  = Node.new(nil, nil)
-    @first  = @dummy.next
-    @last   = @dummy
-    @length = 0
+    if list.nil?
+      @last   = @dummy
+      @length = 0
+    else
+      @dummy.next = list
+      @length = 0
+      @last = nil
+      each do |pointer|
+        @length += 1
+        @last = pointer.next
+      end
+    end
   end
 
   def first
@@ -69,21 +78,20 @@ class BPlusTree::LinkedList
   end
 
   def split(key)
-#    half = @length / 2
-#    pointer = @dummy
-#    half.times do
-#      pointer = pointer.next
-#    end
-#    pivot = pointer.key
-#    right = BPlusTree::LinkedList.new
+    half = (@length / 2.0).ceil
+    pointer = @dummy
+    half.times do
+      pointer = pointer.next
+    end
+    pivot_node = pointer.next
+    right = BPlusTree::LinkedList.new(pivot_node)
 
-    # temp
-    right = BPlusTree::LinkedList.new
-    right.insert(@last.key, @last.value)
-    pivot = @last.key
-    delete(pivot)
     left = self
-    return left, pivot, right
+    pointer.next = nil
+    @last = pointer
+    @length = half
+
+    return left, pivot_node.key, right
   end
 
   def each
