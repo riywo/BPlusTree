@@ -1,6 +1,6 @@
 describe BPlusTree::Tree do
   before do
-    @tree = BPlusTree::Tree.new(4)
+    @tree = BPlusTree::Tree.new(3)
   end
 
   it 'should insert one record' do
@@ -22,8 +22,22 @@ describe BPlusTree::Tree do
     @tree.insert(3, 'three').should == true
     @tree.keys.should == [[1,2,3]]
     @tree.insert(4, 'four').should == true
-    @tree.keys.should == [[1,2,3,4]]
+    @tree.keys.should == [[1,2],[3,4]]
     @tree.insert(5, 'five').should == true
     @tree.keys.should == [[1,2],[3,4,5]]
+  end
+
+  it 'should split root page' do
+    @tree.insert(1,1).should == true
+    @tree.insert(2,1).should == true
+    @tree.insert(3,1).should == true
+    @tree.insert(4,1).should == true
+    @tree.insert(5,1).should == true
+    @tree.insert(6,1).should == true
+    @tree.keys.should == [[1,2],[3,4],[5,6]]
+    @tree.insert(7,1).should == true
+    @tree.keys.should == [[1,2],[3,4],[5,6,7]]
+    @tree.insert(8,1).should == true
+    @tree.keys.should == [[[1,2],[3,4]],[[5,6],[7,8]]]
   end
 end

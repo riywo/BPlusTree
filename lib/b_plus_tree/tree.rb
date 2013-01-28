@@ -30,7 +30,12 @@ class BPlusTree::Tree
     pivot, new_page = page.split(key)
     parent = path.shift
 
-    if parent.can_insert?(pivot, new_page)
+    if parent.nil? # split root
+      new_root = BPlusTree::Root.new(@root.max_size)
+      new_root.list.search_lte(0).value = page
+      new_root.insert(pivot, new_page)
+      @root = new_root
+    elsif parent.can_insert?(pivot, new_page)
       parent.insert(pivot, new_page)
     else
       p_pivot, p_new_page = split_page(pivot, parent, path)
