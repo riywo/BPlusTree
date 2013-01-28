@@ -18,7 +18,9 @@ class BPlusTree::Root < BPlusTree::Page
   def keys
     array = []
     @list.each do |node|
+      key = node.next.key
       child = node.next.value
+      array.push(key)
       array.push(child.keys)
     end
     array
