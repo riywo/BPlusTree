@@ -20,4 +20,8 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rspec', '~> 2.5'
   gem.add_development_dependency 'rake', '~> 0.9.2.2'
   gem.add_development_dependency 'rdoc', '~> 3.12'
+  gem.add_development_dependency 'gruff'
+  gem.add_development_dependency 'rmagick'
+  gem.add_development_dependency 'ruby-prof'
+  gem.add_development_dependency 'parallel'
 end
