@@ -35,6 +35,10 @@ class BPlusTree::Page
     @list.delete(key)
   end
 
+  def search(key)
+    @list.search(key)
+  end
+
   def can_insert?(key, value)
     if length + 1 > max_size
       nil

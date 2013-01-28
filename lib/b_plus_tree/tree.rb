@@ -27,6 +27,11 @@ class BPlusTree::Tree
     leaf.delete(key)
   end
 
+  def search(key)
+    leaf, path = @root.search_leaf(key)
+    leaf.search(key)
+  end
+
   def keys
     @root.keys
   end

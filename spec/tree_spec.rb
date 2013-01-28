@@ -49,4 +49,15 @@ describe BPlusTree::Tree do
     @tree.delete(1).should == true
     @tree.keys.should == [0,[2,3]]
   end
+
+  it 'should search exist nodes' do
+    @tree.insert(2, 'two').should   == true
+    @tree.insert(1, 'one').should   == true
+    @tree.insert(3, 'three').should == true
+
+    @tree.search(1).key.should == 1
+    @tree.search(2).key.should == 2
+    @tree.search(3).key.should == 3
+    @tree.search(4).should == nil
+  end
 end
