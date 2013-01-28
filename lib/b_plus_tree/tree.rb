@@ -1,6 +1,8 @@
 class BPlusTree::Tree
   def initialize(size)
     @root = BPlusTree::Root.new(size)
+    leaf = BPlusTree::Leaf.new(size)
+    @root.insert(0, leaf)
   end
 
   def insert(key, value)
@@ -32,7 +34,7 @@ class BPlusTree::Tree
 
     if parent.nil? # split root
       new_root = BPlusTree::Root.new(@root.max_size)
-      new_root.list.search_lte(0).value = page
+      new_root.insert(0, page)
       new_root.insert(pivot, new_page)
       @root = new_root
     elsif parent.can_insert?(pivot, new_page)

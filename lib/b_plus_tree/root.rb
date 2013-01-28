@@ -1,10 +1,4 @@
 class BPlusTree::Root < BPlusTree::Page
-  def initialize(size)
-    super(size)
-    leaf = BPlusTree::Leaf.new(size)
-    insert(0, leaf)
-  end
-
   def search_leaf(key, path = [self])
     child = @list.search_lte(key).value
 
@@ -25,5 +19,4 @@ class BPlusTree::Root < BPlusTree::Page
     end
     array
   end
-
 end
