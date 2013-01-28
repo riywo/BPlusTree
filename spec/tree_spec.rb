@@ -40,4 +40,13 @@ describe BPlusTree::Tree do
     @tree.insert(8,1).should == true
     @tree.keys.should == [0,[0,[1,2],3,[3,4]],5,[5,[5,6],7,[7,8]]]
   end
+
+  it 'should delete one record' do
+    @tree.insert(1,1).should == true
+    @tree.insert(2,1).should == true
+    @tree.insert(3,1).should == true
+    @tree.keys.should == [0,[1,2,3]]
+    @tree.delete(1).should == true
+    @tree.keys.should == [0,[2,3]]
+  end
 end

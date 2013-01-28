@@ -22,6 +22,11 @@ class BPlusTree::Tree
     nil
   end
 
+  def delete(key)
+    leaf, path = @root.search_leaf(key)
+    leaf.delete(key)
+  end
+
   def keys
     @root.keys
   end
