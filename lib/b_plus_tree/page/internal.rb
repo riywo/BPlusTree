@@ -1,8 +1,8 @@
-class BPlusTree::Internal < BPlusTree::Page
+class BPlusTree::Page::Internal < BPlusTree::Page
   def search_leaf(key, path = [self])
     child = @list.search_lte(key).value
 
-    if child.class == BPlusTree::Leaf
+    if child.class == BPlusTree::Page::Leaf
       return child, path
     else # child == internal
       return child.search_leaf(key, path)

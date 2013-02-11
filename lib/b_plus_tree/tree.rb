@@ -1,7 +1,7 @@
 class BPlusTree::Tree
   def initialize(size)
-    @root = BPlusTree::Internal.new(size)
-    leaf = BPlusTree::Leaf.new(size)
+    @root = BPlusTree::Page::Internal.new(size)
+    leaf  = BPlusTree::Page::Leaf.new(size)
     @root.insert(0, leaf)
   end
 
@@ -43,7 +43,7 @@ class BPlusTree::Tree
     parent = path.shift
 
     if parent.nil? # split root
-      new_root = BPlusTree::Internal.new(@root.max_size)
+      new_root = BPlusTree::Page::Internal.new(@root.max_size)
       new_root.insert(0, page)
       new_root.insert(pivot, new_page)
       @root = new_root
